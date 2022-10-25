@@ -4,32 +4,42 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        String [] comando;
+
 
         int opc = menu();
 
         switch (opc) {
 
             case 1:
-                String ruta=sc.nextLine();
-                String nombreCarpeta=sc.nextLine();
-                ProcessBuilder pb=new ProcessBuilder("cmd", "/C", "md", ruta+nombreCarpeta);
 
-
-                try {
-                    Process p = pb.start();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-
+                comando= new String[]{"cmd", "/C", "md", devolverRutaYArchivo()};
+                ejecutarComando(comando);
 
                 break;
 
             case 2:
+                comando= new String[]{"cmd", "/C", "type", "nul",">", devolverRutaYArchivo()};
+                ejecutarComando(comando);
+
                 break;
 
 
             case 3:
+                comando= new String[]{"cmd","/C", "dir", devolverRutaYArchivo() };
+                ProcessBuilder pb = new ProcessBuilder(comando);
+
+                pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+
+
+                try {
+                    Process p = pb.start();
+
+                    System.out.println("Comando ejecutado con éxito");
+                } catch (IOException e) {
+
+                    System.err.println("Fallo en la ejecución del comando");
+                }
                 break;
 
             default:
@@ -39,6 +49,34 @@ public class Main {
 
 
     }
+
+    public static void ejecutarComando(String[] comando){
+
+        ProcessBuilder pb = new ProcessBuilder(comando);
+
+        try {
+            Process p = pb.start();
+
+            System.out.println("Comando ejecutado con éxito");
+        } catch (IOException e) {
+
+            System.err.println("Fallo en la ejecución del comando");
+        }
+
+    }
+
+    public static String devolverRutaYArchivo(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduzca la ruta");
+        String ruta=sc.nextLine();
+        System.out.println("Introduzca el nombre de la carpeta o archivo");
+        String  nombre=sc.nextLine();
+
+
+        return ruta+nombre;
+
+    }
+
 
 
     public static int menu() {
