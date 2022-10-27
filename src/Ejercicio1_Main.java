@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Main {
+public class Ejercicio1_Main {
     public static void main(String[] args) {
 
         String [] comando;
