@@ -13,12 +13,20 @@ public class Ejercicio1_Main {
 
             case 1:
 
+                /**
+                 * Se crea el array con el comando y la ruta usando el método de abajo, luego este String
+                 * se usa como parámetro para el siguiente método que lo ejecutará.
+                 */
                 comando= new String[]{"cmd", "/C", "md", devolverRutaYArchivo()};
                 ejecutarComando(comando);
 
                 break;
 
             case 2:
+
+                /**
+                 * Lo mismo que el anterior.
+                 */
                 comando= new String[]{"cmd", "/C", "type", "nul",">", devolverRutaYArchivo()};
                 ejecutarComando(comando);
 
@@ -26,6 +34,9 @@ public class Ejercicio1_Main {
 
 
             case 3:
+                /**
+                 * Una vez que ejecutamos el comando, se redirige la salida para que se muestre por pantalla.
+                 */
                 comando= new String[]{"cmd","/C", "dir", devolverRutaYArchivo() };
                 ProcessBuilder pb = new ProcessBuilder(comando);
 
@@ -50,6 +61,11 @@ public class Ejercicio1_Main {
 
     }
 
+    /**
+     * Se crea un método para ejecutar los comandos, ya que se repite en el ejercicio. Toma como parámetro un array
+     * de String que contendrá el comando a ejecutar.
+     * @param comando
+     */
     public static void ejecutarComando(String[] comando){
 
         ProcessBuilder pb = new ProcessBuilder(comando);
@@ -65,6 +81,11 @@ public class Ejercicio1_Main {
 
     }
 
+    /**
+     * Este método retorna un String con la ruta y el nombre del archivo/carpeta que necesitamos para cada uno de
+     * los ejercicios. Se le pedirá al usuario dos entrys y se retornará juntas.
+     * @return
+     */
     public static String devolverRutaYArchivo(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Introduzca la ruta");
